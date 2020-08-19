@@ -12,7 +12,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Main {
 
@@ -39,8 +38,7 @@ public class Main {
             JsonNode node = mapper.readTree(json);
             node = node.get("all");
             List<CatFact> catFactList = mapper.readValue(node.toString(), new TypeReference<>() {});
-            Stream<CatFact> stream = catFactList.stream();
-            stream.filter(value -> value.getUpvotes() != null && value.getUpvotes() > 0).forEach(System.out::println);
+            catFactList.stream().filter(value -> value.getUpvotes() != null && value.getUpvotes() > 0).forEach(System.out::println);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
